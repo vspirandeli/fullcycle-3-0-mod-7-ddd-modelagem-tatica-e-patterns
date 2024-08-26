@@ -1,42 +1,37 @@
-// class Customer {
-//   _id: string;
-//   _name: string;  
-//   _address: string;
-//   _active: boolean = true;
-
-//   constructor(id: string, name: string, address: string) {
-//     this._id = id;
-//     this._name = name;
-//     this._address = address;
-//   }
-
-//   // Trás uma regra de negócio para a entidade. Mais semântica.
-//   changeName(name: string) {
-//     this._name = name;
-//   }
-
-//   activate() {
-//     this._active = true;
-//   }
-
-//   deactivate() {
-//     this._active = false;
-//   }
-// }
-
-/////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////
-// Nesse ponto do código é mostrado a inconsistência dos dados. Pois não existe cliente sem nome. 
-// A entdade deve estar consistente 100% do tempo.
 class Customer {
   _id: string;
-  _name: string = "";  
-  _address: string = "";
+  _name: string;  
+  _address: string;
   _active: boolean = true;
 
-  constructor(id: string) {
+  constructor(id: string, name: string, address: string) {
     this._id = id;
+    this._name = name;
+    this._address = address;
+
+    this.validate();
+  }
+
+  validate() {
+    if (!this._name) {
+      throw new Error("Name is required");
+    }
+
+    if (this._name.length < 3) {
+      throw new Error("Name must have at least 3 characters");
+    }
+
+    if (!this._address) {
+      throw new Error("Address is required");
+    }
+
+    if (this._address.length < 3) {
+      throw new Error("Address must have at least 3 characters");
+    }
+
+    if (!this._id) {
+      throw new Error("Id is required");
+    }
   }
 
   // Trás uma regra de negócio para a entidade. Mais semântica.
@@ -53,8 +48,37 @@ class Customer {
   }
 }
 
-let cliente = new Customer("1");
-cliente.changeName("João");
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+// Nesse ponto do código é mostrado a inconsistência dos dados. Pois não existe cliente sem nome. 
+// A entdade deve estar consistente 100% do tempo.
+// class Customer {
+//   _id: string;
+//   _name: string = "";  
+//   _address: string = "";
+//   _active: boolean = true;
+
+//   constructor(id: string) {
+//     this._id = id;
+//   }
+
+//   // Trás uma regra de negócio para a entidade. Mais semântica.
+//   changeName(name: string) {
+//     this._name = name;
+//   }
+
+//   activate() {
+//     this._active = true;
+//   }
+
+//   deactivate() {
+//     this._active = false;
+//   }
+// }
+
+// let cliente = new Customer("1");
+// cliente.changeName("João");
 
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
