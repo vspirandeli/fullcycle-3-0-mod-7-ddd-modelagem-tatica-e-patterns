@@ -1,13 +1,14 @@
+import { Address } from "./address";
+
 class Customer {
   _id: string;
   _name: string;  
-  _address: string;
+  _address!: Address;
   _active: boolean = true;
 
-  constructor(id: string, name: string, address: string) {
+  constructor(id: string, name: string) {
     this._id = id;
     this._name = name;
-    this._address = address;
 
     this.validate();
   }
@@ -23,10 +24,6 @@ class Customer {
 
     if (!this._address) {
       throw new Error("Address is required");
-    }
-
-    if (this._address.length < 3) {
-      throw new Error("Address must have at least 3 characters");
     }
 
     if (!this._id) {
@@ -45,6 +42,10 @@ class Customer {
 
   deactivate() {
     this._active = false;
+  }
+
+  setAddress(address: Address) {
+    this._address = address;
   }
 }
 
