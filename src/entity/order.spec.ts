@@ -1,46 +1,37 @@
-import { Address } from "./address";
-import { Customer } from "./customer";
+import Order from "./order";
+import OrderItem from "./order_item";
 
-describe('Customer unit tests', () => {
+describe('Order unit tests', () => {
   it('should throw error when id is empty', () => {
-    expect(() => new Customer('', 'John Doe')).toThrowError('Id is required');
-  })
-
-  it('should throw error when name is empty', () => {
-    expect(() => new Customer('1', '')).toThrowError('Name is required');
-  })
-
-  it('should change name', () => {
-    // Arrange
-    const customer = new Customer('1', 'John Doe');
-
-    // Act
-    customer.changeName('Jane Doe');
-
-    // Assert
-    expect(customer.name).toBe('Jane Doe');
-  })
-
-  it('should activate customer', () => {
-    const customer = new Customer('1', 'Customer 1');
-    const address = new Address('Street 1', 12345678, 'City', 'State');
-    customer.setAddress(address);
-
-    customer.activate();
-    expect(customer.isActive()).toBeTruthy();
-  })
-
-  it('should deactivate customer', () => {
-    const customer = new Customer('1', 'Customer 1');
-
-    customer.deactivate();
-    expect(customer.isActive()).toBeFalsy();
-  })
-
-  it('should trhow error when address is empty and try to activate an customer', () => {
     expect(() => {
-      const customer = new Customer('1', 'Customer 1');
-      customer.activate();
-    }).toThrowError('Address is required');
+      const order = new Order('', 'customer-id', []);
+    }).toThrowError('Order id is required');
+  })
+
+  it('should trhow error when customerId is empty', () => {
+    expect(() => {
+      const order = new Order('order-id', '', []);
+    }).toThrowError('Order customer id is required');
+  })
+
+  it('should throw error when items is empty', () => {
+    expect(() => {
+      const order = new Order('order-id', 'customer-id', []);
+    }).toThrowError('Order items are required');
+  })
+
+  it('should calculate total', () => {
+    const item = new OrderItem('item-id', 'item-name', 100);
+    const item2 = new OrderItem('item-id', 'item-name', 120);
+
+    const order = new Order('order-id', 'customer-id', [item]);
+    const total = order.total();
+    expect(total).toBe(100);
+
+    const order2 = new Order('order-2-id', 'customer-id', [item, item2]);
+    const total2 = order2.total();
+    expect(total2).toBe(220);
+
+
   })
 })
