@@ -28,6 +28,10 @@ export default class Order {
       throw new Error('Order items are required');
     }
 
+    if (this._items.some(item => item.quantity <= 0)) {
+      throw new Error('Order item quantity must be greater than 0');
+    }
+
     return true;
   }
 
