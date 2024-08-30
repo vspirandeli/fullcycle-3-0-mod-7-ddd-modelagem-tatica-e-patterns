@@ -1,7 +1,7 @@
 export default class OrderItem {
   private _id: string;
   private _name: string;
-  private _productId: string;
+  private _product_id: string;
   private _price: number;
   private _quantity: number;
 
@@ -9,7 +9,7 @@ export default class OrderItem {
     this._id = id;
     this._name = name;
     this._price = price;
-    this._productId = productId;
+    this._product_id = productId;
     this._quantity = quantity;
   }
 
