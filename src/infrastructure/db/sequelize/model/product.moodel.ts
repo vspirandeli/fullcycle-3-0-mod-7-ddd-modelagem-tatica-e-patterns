@@ -5,6 +5,8 @@ import { Column, PrimaryKey, Table } from "sequelize-typescript";
 @Table({
   tableName: 'product',
   timestamps: false,
+  createdAt: false,
+  updatedAt: false,
 })
 export default class ProductModel extends Model {
   @PrimaryKey
@@ -16,5 +18,4 @@ export default class ProductModel extends Model {
 
   @Column({ allowNull: false })
   declare price: number;
-
 }
