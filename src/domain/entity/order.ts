@@ -15,6 +15,18 @@ export default class Order {
     this.validate();
   }
 
+  get id(): string {
+    return this._id;
+  }
+
+  get customerId(): string {
+    return this._customerId;
+  }
+
+  get items(): Array<OrderItem> {
+    return this._items;
+  }
+
   validate(): boolean {
     if (!this._id) {
       throw new Error('Order id is required');
@@ -37,5 +49,14 @@ export default class Order {
 
   total(): number {
     return this._items.reduce((acc, item) => acc + item.orderItemTotal(), 0);
+  }
+
+  changeCustomer(customerId: string): void {
+    this._customerId = customerId;
+  }
+
+  addItem(item: OrderItem): void {
+    this._items.push(item);
+    this._total = this.total();
   }
 }

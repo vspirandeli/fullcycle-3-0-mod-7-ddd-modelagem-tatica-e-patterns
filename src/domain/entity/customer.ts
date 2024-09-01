@@ -26,6 +26,10 @@ export class Customer {
     return this._id;
   }
 
+  get address(){
+    return this._address;
+  }
+
   isActive(): boolean {
     return this._active;
   }

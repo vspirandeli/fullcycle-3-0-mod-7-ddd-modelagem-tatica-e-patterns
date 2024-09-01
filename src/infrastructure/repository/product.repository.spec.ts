@@ -14,25 +14,7 @@ describe('Product respository test', () => {
       sync: { force: true },
     });
 
-    // sequileze.addModels([ProductModel]);
-    ProductModel.init({
-      id: {
-        type: DataType.STRING,
-        primaryKey: true,
-      },
-      name: {
-        type: DataType.STRING,
-        allowNull: false,
-      },
-      price: {
-        type: DataType.NUMBER,
-        allowNull: false,
-      },
-    }, { 
-      sequelize: sequileze,
-      timestamps: false
-    }
-  )
+    sequileze.addModels([ProductModel]);
     await sequileze.sync();    
   })
 
